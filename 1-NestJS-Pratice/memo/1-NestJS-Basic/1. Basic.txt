@@ -1,0 +1,29 @@
+1. NestJS 기초
+=> npm init -y => package.json 생성
+
+1-1. @nestjs/common 
+=> nestJS 애플리케이션을 만들기 위해 사용할 함수, 클래스 등이 포함된 패키지입니다.
+1-2. @nestjs/paltform-express
+=> http server를 구축하기 위한 구현물입니다. (fasify도 존재합니다. 기본값은 express입니다.)
+1-3. reflect-metadata
+=> 데코레이터와 관련된 라이브러리입니다.
+1-4. typescript
+=> nestJS에서 사용되는 Tyescript 라이브러리입니다.
+
+
+2. tsconfig.json을 생성하여 TS를 설정합니다.
+
+
+3. NestJS Flow
+3-1. 요청이 Server에 전달됩니다.
+3-2. 요청 데이터를 검증합니다. 이를 Pipe라고 합니다.
+3-3. 유저 인증, 인가 처리를 합니다. 이를 Guard라고 합니다.
+3-4. 라우팅을 이용해 요청을 받고 특정한 함수를 실행합니다. 이를 Controller라고 합니다.
+3-5. 비지니스 로직을 실행합니다. 이를 Service라고 합니다.
+3-6. 데이터 베이스에 접근합니다. 이를 Repository라고 합니다.
+=> 이 흐름을 파이프라고 합니다.
+
+
+4. NestJS Concepts
+=> 컨트롤러, 서비스, 모듈, 파이프, 필터, 가드, 인터셉터, 레파지토리...
+
