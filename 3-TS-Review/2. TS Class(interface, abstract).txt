@@ -1,0 +1,62 @@
+1. TS Class
+=> JS 클래스 기반입니다.
+=> 타입 안전성, 접근 제어자, 인터페이스 및 추상 클래스, 읽기 전용 속성, 제네릭 등 기능이 추가되었습니다.
+
+
+2. TS Class Basic
+2-1. class className(){} 정의합니다.
+2-2. 인스턴스 객체에 할당할 프로퍼티를 정의하고 타입을 부여합니다.
+2-3. constructor를 통해 인스턴스 객체 프로퍼티 초기화 작업을 실행합니다. 이 떄 매개변수에 타입을 지정합니다.
+(class Person{
+    name : string
+    age : number
+
+    constructor(name : string, age : number){
+        this.name = name;
+        this.age = age;
+    }
+})
+
+2-1. 초기화 축약법
+=> 속성을 정의하고 초기화 작업을 동시에 할 수 있는 축약법이 존재합니다.
+=> constructor를 호출합니다.
+=> 매개변수에 (접근제어자 속성 : 타입)을 지정합니다.
+=> constructor(public name : string, private password : number){}
+
+
+3. TS 접근 제어자
+3-1. Public (default)
+=> 어디에서든 접근할 수 있습니다.
+
+3-2. private
+=> 클래스 내부에서만 접근할 수 있습니다.
+
+3-3. protected
+=> 상속받은 클래스에서만 접근할 수 있습니다.
+=> 즉, private이지만 상속받은 클래스에서는 접근할 수 있습니다.
+
+
+4. readonly
+=> 한 번 초기화하면 값을 변경할 수 없게 만드는 기능입니다.
+=> 프로퍼티 앞에 추가합니다.
+=> readonly brand : string;
+
+
+5. getter/setter
+=> TS Class에서도 getter와 setter를 사용할 수 있습니다.
+=> 메서드이기에 return, 인자의 타입검사를 진행할 수 있습니다.
+
+
+6. TS 상속
+=> JS와 동일합니다. (부모가 constructor가 없다면 super() 호출하지 않아도 상속처리됩니다.)
+
+
+7. Interface
+7-1. 객체가 특정 속성이나 메서드를 반드시 갖도록 요구하는 문법입니다.
+7-2. 객체의 구조만 정의하고 구현은 클래스에서 정의하도록 합니다.
+7-3. class Person implements interfaceName{} 으로 정의합니다.
+7-4. 인터페이스 자체로 객체를 생성할 수 없습니다.
+
+
+8. 
+
