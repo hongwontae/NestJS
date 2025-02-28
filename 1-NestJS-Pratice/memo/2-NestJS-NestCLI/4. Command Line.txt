@@ -1,0 +1,19 @@
+1. 루트 폴더에서 터미널 명령어
+=> nest generate module messages
+=> src 폴더에 messages라는 폴더와 그 아래 messages.module.ts가 생성됩니다.
+=> module 파일은 @Module()과 export class가 존재합니다.
+
+
+2. nest generate controller messages/messages --flat
+=> src/messages 폴더에 controller를 생성하고 messages.module에 controller를 추가합니다.
+
+
+3. 세부사항
+3-1. nest generate => nestJS 애플리케이션에서 무엇을 생성할 떄 사용하는 구문
+3-2. controller or module.. => class나 module 파일을 생성하는 구문입니다.
+3-3. messages/messages 
+=> 첫 번쨰 messages는 src/messages를 target
+=> 두 번쨰 messages는 만들 controller, module.. 이름을 정하는 것입니다.
+=> @Controller('messages')
+3-4. --flat
+=> --flat이 없다면 controller나 module src/messages/controller or /module 폴더를 하나더 생성합니다.

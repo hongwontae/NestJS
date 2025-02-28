@@ -1,0 +1,40 @@
+1. Pipe
+=> @Body(), @Param(), @Query() 같은 데코레이터가 실행될 때 요청 데이터를 가로채서 작업을 실행합니다.
+
+
+2. Pipe 설정
+2-1. 전역 파이프 설정
+=> app.useGlobalPipes(new ValidationPipe())를 bootstrap 함수에서 호출합니다.
+=> 모든 컨트롤러와 모든 DTO에 대해 자동으로 검증을 시작합니다.
+=> @Body(), @Param(), @Query() 같은 요청 데이터를 받을 때 자동으로 ValidationPipe가 동작합니다.
+
+2-2. 특정 API 파이프 설정
+=> 컨트롤러의 http 라우트 핸들러에서 @Body(new ValidationPipe()), @Param(new ValidationPipe)....
+=> @Body(new ValidationPipe() parameter : typeDto)를 설정합니다.
+=> 해당 라우트 핸들러 pipe 작업만 실행됩니다.
+
+
+3. Pipe 관련 라이브러리
+1. 검증(class-vaildator) : 요청 데이터가 DTO에 정의한 규칙을 따르는지 검사합니다.
+2. 변환(class-transformer) :  요청 데이터를 DTO에 맞는 형식으로 변환합니다.
+
+
+4. DTO(Data Transfer Object) 정의
+4-1. export class DTO {}를 정의합니다.
+4-2. 클래스 내부에서 검증 데이터 속성과 타입을 정의합니다.
+4-3. class-vaildator 패키지에서 검증 속성 어노테이션을 import합니다.
+(@IsStirng(), @IsInt()...)
+4-4. 필요하다면 class-transformer 패키지에서 변환 속성 어노테이션을 import합니다.
+(@Type(()=>number) // 들어온 데이터가 문자열로 들어와도 number로 자동변환 ) 
+
+
+5. new VaildationPipe()가 호출되면 흐름을 가로채서 DTO와 요청 데이터를 비교하고 검증 및 변환을 수행합니다.
+
+
+6. ValidationPipe 내부 동작
+6-1. class-transformer가 실행되어 DTO 형태로 변환합니다.
+6-2. 그 후 class-validator가 실행되어 검증 수행합니다.
+6-3. 검증이 통과되면 DTO의 인스턴스 즉, class에서 개발자가 정의한 DTO 인스턴스를 
+ 컨트롤러가 받습니다.
+
+

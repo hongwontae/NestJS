@@ -1,0 +1,14 @@
+1. NestJS에서 Module이란?
+=> 애플리케이션의 구성 요소로서, 관련된 기능들을 하나의 그룹으로 묶는 역할을 합니다.
+=> 관련된 서비스, 컨트롤러, 프로바이더들을 하나의 모듈로 묶어서 단위합니다.
+=> 각 모듈은 독립적인 구성요소로서, 필요한 다른 모듈들을 import하고, export할 수 있습니다.
+
+
+2. module 기본 구조
+2-1. @Module() 데코레이터로 정의합니다.
+2-2. 그 안에 Providers, Controllers, imports, exports 등을 설정합니다.
+=> @Module({
+    controllers : [...],
+    providers : [...]
+})
+2-3. export class className(){} 위에서 @Module을 사용하여 내보냅니다. class 본문은 대개 정의하지 않습니다.

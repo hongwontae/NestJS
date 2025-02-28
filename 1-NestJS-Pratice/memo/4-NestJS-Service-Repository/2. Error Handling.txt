@@ -1,0 +1,4 @@
+1. NestJS에서는 정의한 오류 객체가 존재합니다.
+=> throw new NotFoundException('messages..');
+=> 404 에러와 메시지가 응답으로 전달됩니다.
+=> @nestjs/common 라이브러리에 존재합니다.

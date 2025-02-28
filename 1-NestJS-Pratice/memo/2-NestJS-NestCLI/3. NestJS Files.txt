@@ -1,0 +1,10 @@
+1. package.json
+=> start:dev => 서버를 시작하고 변경사항이 있을 떄 자동으로 재실행합니다.
+=> npm run start:dev 
+
+
+2. eslint.config.mjs
+=> nestjs 구성할 떄 규칙을 설정하는 파일입니다.
+
+
+3. src

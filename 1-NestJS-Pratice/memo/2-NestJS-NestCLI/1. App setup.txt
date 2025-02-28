@@ -1,0 +1,4 @@
+1. npm install -g @nestjs/cli
+2. nest new filename
+3. npm enter
+=> nestjs 애플리케이션이 설치됩니다.
