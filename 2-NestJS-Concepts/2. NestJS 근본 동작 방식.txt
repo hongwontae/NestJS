@@ -8,7 +8,9 @@
 
 2. DI 컨테이너 흐름
 2-1. 앱이 시작되면 @Module에 등록된 클래스(서비스, 컨트롤러 등)가 DI 컨테이너에 등록됩니다.
-=> providers, controllers, exports 등으로 등록된 모든 클래스의 정보가 DI 컨테이너에 저장됩니다.
+=> @Module이 붙은 providers, controllers, exports 등으로 등록된 모든 클래스의 
+ 정보가 DI 컨테이너에 저장됩니다.
+=> exports, imports가 존재하지 않는다면 private한 provider가 됩니다.
 => 하지만 이 떄 모든 클래스의 인스턴스가 즉시 생성되는 것이 아닙니다.
 
 2-2. DI 컨테이너는 각 클래스가 필요한 의존성을 분석합니다.

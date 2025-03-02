@@ -2,6 +2,9 @@
 => JS 클래스 기반입니다.
 => 타입 안전성, 접근 제어자, 인터페이스 및 추상 클래스, 읽기 전용 속성, 제네릭 등 기능이 추가되었습니다.
 
+** TS, JS class this
+=> this는 현재 클래스 내부에서 실행중임을 보장하는 접근 방식입니다.
+=> 속성이 private일 떄 this.b()는 허용, instance.b()는 불허용
 
 2. TS Class Basic
 2-1. class className(){} 정의합니다.

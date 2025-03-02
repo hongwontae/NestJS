@@ -1,0 +1,9 @@
+1. nest g module filename
+=> src/filename moduleFile을 생성합니다.
+
+2. nest g service filename
+=> src/filename serviceFile을 생성합니다.
+
+3. nest g controller filname
+=> src/filename controllerFile을 생성합니다.
+

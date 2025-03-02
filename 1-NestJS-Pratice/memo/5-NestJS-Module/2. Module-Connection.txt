@@ -1,0 +1,13 @@
+1. 모듈은 독립적이지만 export하여 다른 모듈에서 사용할 수 있습니다.
+
+2. @Module({providers:[]})의 서비스는 기본적으로 private입니다.
+=> 다른 모듈이 접근할 수 없습니다.
+
+3. exports키를 통해 다른 모듈의 접근을 허용할 수 있습니다.
+=> @Module({providers:[service], exports : [service]});
+
+4. exports의 서비스를 사용할 모듈파일에서 imports 키를 통해 가져올 수 있습니다.
+=> @Module(providers:[service2], imports : [exportModule]);
+=> 독립적인 모듈들이 연결되었습니다.
+
+5. 사용할 service 파일에서 constructor를 통해 의존성 주입을 실행하면 인스턴스가 할당됩니다.
