@@ -1,0 +1,22 @@
+1. 의존성을 가져올 클래스를 import합니다.
+
+2. 의존성을 받을 클래스에서 의존성 속성을 선언합니다.
+
+3. constructor를 호출해서 인자로 import한 의존성 클래스를 넣고 타입을 할당합니다.
+
+4. constructor 내부에서 선언한 프로퍼티에 가져온 클래스를 그대로 할당합니다.
+
+
+5. 축약법
+=> constructor(public messageRepo : MessageRepository){}
+=> 프로퍼티와 constructor 내부를 생략하고 인자에 가져온 클래스, 타입을 할당하면 위와 동일합니다.
+
+
+6. @Injectable()
+=> 클래스를 DI 컨테이너에 등록하는 데코레이터입니다.
+=> 1~5 방법으로 사용하려면 @Injectable을 의존성을 줄 클래스에 줘야 합니다.
+
+
+7. @Module()
+=> 6의 작업이 끝나면 @Module({providers : []})에 배열 안에서비스와 저장소를 저장해야 합니다.
+=> 7까지 끝나면 Nest.js가 실행될 떄 해당 모듈의 의존성 주입이 시작되고 app이 동작합니다.
