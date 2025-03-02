@@ -1,0 +1,8 @@
+1. Repository API
+=> create(), save(), find(), findOne(), remove()....
+=> 서비스에서 의존성을 주입받아서 사용할 수 있습니다.
+
+2. save() vs insert(), update()
+
+
+3. remove() vs delete()

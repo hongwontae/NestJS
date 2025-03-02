@@ -15,5 +15,7 @@
 => 연결이 완료되었습니다.
 
 
-2. 엔티티 연결 과정 상세
-=> 
+2. sqlite 데이터 확인
+2-1. sqlite extension을 설치합니다.
+2-2. 명령어 팔레트에서 sqlite:open database를 클릭합니다.
+2-3. Explorer 가장 아래 SQLITE EXPLORER에서 데이터를 가시적으로 확인할 수 있습니다.

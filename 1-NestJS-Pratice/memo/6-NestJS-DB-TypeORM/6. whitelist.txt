@@ -1,0 +1,7 @@
+1. app.useGlobalPipes(
+    new VaidationPipe({
+        whitelist : true
+    })
+) 
+=> 들어오는 모든 요청을 검증하고 받을 인자의 DTO 타입이 아니라면 해당 속성을 제거하라
+=> 자그마한 보안 장치입니다.

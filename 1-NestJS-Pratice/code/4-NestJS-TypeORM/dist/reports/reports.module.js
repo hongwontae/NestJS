@@ -9,12 +9,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReportsModule = void 0;
 const common_1 = require("@nestjs/common");
 const reports_controller_1 = require("./reports.controller");
+const typeorm_1 = require("@nestjs/typeorm");
+const report_entity_1 = require("./report.entity");
 let ReportsModule = class ReportsModule {
 };
 exports.ReportsModule = ReportsModule;
 exports.ReportsModule = ReportsModule = __decorate([
     (0, common_1.Module)({
-        controllers: [reports_controller_1.ReportsController]
+        controllers: [reports_controller_1.ReportsController],
+        imports: [typeorm_1.TypeOrmModule.forFeature([report_entity_1.Report])]
     })
 ], ReportsModule);
 //# sourceMappingURL=reports.module.js.map
