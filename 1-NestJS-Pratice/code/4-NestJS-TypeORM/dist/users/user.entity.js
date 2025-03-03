@@ -15,6 +15,15 @@ let User = class User {
     id;
     email;
     password;
+    logInsert() {
+        console.log('Inserted User with id', this.id);
+    }
+    logUpdate() {
+        console.log('update', this.id);
+    }
+    logRemove() {
+        console.log('remove', this.id);
+    }
 };
 exports.User = User;
 __decorate([
@@ -29,6 +38,24 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.AfterInsert)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], User.prototype, "logInsert", null);
+__decorate([
+    (0, typeorm_1.AfterUpdate)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], User.prototype, "logUpdate", null);
+__decorate([
+    (0, typeorm_1.AfterRemove)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], User.prototype, "logRemove", null);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

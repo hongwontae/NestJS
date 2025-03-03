@@ -6,3 +6,25 @@ Content-Type: application/json
     "email" : "dnjsxoghd@naver.com",
     "password" : "koala3121"
 }
+
+
+### Find a particualer user with a given ID
+GET http://localhost:3000/auth/1
+
+
+### Find ALL User sith a given email
+Get http://localhost:3000/auth?email=dnjsxoghd@naver.com
+
+
+### DELETE A USER GIVEN ID
+DELETE http://localhost:3000/auth/1
+
+
+### Patch
+PATCH http://localhost:3000/auth/2
+Content-Type: application/json
+
+{
+    "email" : "dnjsxgodh@naver.com",
+    "password" : "heool"
+}

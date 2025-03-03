@@ -5,6 +5,7 @@
 ** TS, JS class this
 => this는 현재 클래스 내부에서 실행중임을 보장하는 접근 방식입니다.
 => 속성이 private일 떄 this.b()는 허용, instance.b()는 불허용
+=> JS this를 사용하지 않고 속성이나 메서드에 접근하면 실패합니다. (단지 지역변수이기 떄문..)
 
 2. TS Class Basic
 2-1. class className(){} 정의합니다.
