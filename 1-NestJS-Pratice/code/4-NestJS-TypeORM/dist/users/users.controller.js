@@ -26,8 +26,12 @@ let UsersController = class UsersController {
         const data = await this.userService.createUser(body.email, body.password);
         console.log(data);
     }
-    findUser(id) {
-        return this.userService.findOneUser(parseInt(id));
+    async findUser(id) {
+        const user = await this.userService.findOneUser(parseInt(id));
+        if (!user) {
+            throw new common_1.NotFoundException('user not found!');
+        }
+        return user;
     }
     findAllUser(email) {
         return this.userService.findUser(email);
@@ -52,7 +56,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UsersController.prototype, "findUser", null);
 __decorate([
     (0, common_1.Get)(),
