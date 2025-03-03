@@ -43,7 +43,7 @@
 2-2. TypeOrmModule.createAsyncProviders
 => 각 엔티티(User)마다 Repository를 생성합니다.
 => DI 컨테이너에 getRepositoryToken(User)를 Provider로 등록합니다.
-=> 실제로 Repository 객체는 dataSource.getRepository(User)로 생성합니다.\
+=> 실제로 Repository 객체는 dataSource.getRepository(User)로 생성합니다.
 (해당 레파지토리 덕분에 SQL을 직접 실행하지 않고 ORM 방식으로 주고 받습니다.)
 => 즉, forFeature()를 사용하면 NestJS DI 컨테이너에서 @InjectRepository(User)를 통해 
  Repository를 주입받을 수 있게 되는 것입니다.

@@ -1,6 +1,6 @@
 1. TypeORM Library
 => 다양한 데이터베이스와 연결이 원활한 라이브러리입니다. (SQL, NOSQL)
-=> 일반적으로 @nestjs/typeorm typeorm (db library)를 같이 사용하여 데이터를 관리합니다.
+=> 일반적으로 @nestjs/typeorm, typeorm, (db library)를 같이 사용하여 데이터를 관리합니다.
 
 
 2. 연결 구조

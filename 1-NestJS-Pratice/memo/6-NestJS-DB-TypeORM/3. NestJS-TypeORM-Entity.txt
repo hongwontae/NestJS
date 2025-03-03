@@ -12,6 +12,7 @@
 1-4. 엔티티를 루트 커넥션으로 연결합니다.
 => rootModule로 돌아가서 작성한 Entity를 import합니다.
 => forRoot({entities : [Entity]})를 등록합니다.
+=> 이 과정에서 테이블이 생성됩니다.
 => 연결이 완료되었습니다.
 
 
