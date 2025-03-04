@@ -1,0 +1,28 @@
+1. 의존성을 주입받은 서비스에서 Repository 메서드 정리
+
+2. 데이터 조회 (find)
+2-1. find() => 모든 데이터 조회합니다.
+2-2. find({select : ['id', 'name']}) => 특정 필드만 조회합니다.
+2-3. findOne({where : {id}}) => 특정 조건으로 조회합니다.
+2-4. find({
+  where: { age: 25, isActive: true },
+  order: { name: 'ASC' }, // 정렬
+  take: 10, // 상위 10개
+  skip: 5, // 5개 건너뛰기 (pagination)
+}) => 여러 조건으로 조회합니다.
+
+2-5. SQL 직접 실행
+=> userRepository.query(`SELECT * FROM user WHERE age > 1 $1`, [18]);
+
+2-6. count({where : {isActive : true}}) => 데이터 개수를 확인합니다.
+(모든 find 메서드들은 promise를 반환합니다.)
+
+
+3. 데이터 삽입
+3-1. create({name : '..', age : 19}) => 엔티티 인스턴스를 생성합니다.
+3-2. save(object, entityInstance) => 객체나 엔티티 인스턴스를 받아서 저장합니다.
+3-3. insert(object, entity) => 객체나 엔티티 인스턴스를 받아서 저장합니다.
+=> save는 기존 ID가 존재하면 업데이트, 없으면 삽입합니다.
+=> insert는 ID가 중복되면 에러가 발생합니다.
+
+
