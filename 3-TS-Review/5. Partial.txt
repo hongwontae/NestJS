@@ -1,0 +1,8 @@
+1. Partial<T>
+=> 모든 프로퍼티를 선택적으로(옵셔널) 만드는 타입입니다.
+
+
+2. type MappedType =  {
+    [P in keyof User] : string
+}
+2-1. keyof User => "id" | "name" | "age"

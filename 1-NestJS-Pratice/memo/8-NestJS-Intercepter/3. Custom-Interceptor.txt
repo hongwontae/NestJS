@@ -1,0 +1,30 @@
+1. 인터셉터는 라우트 핸들러나 컨트롤러 자체 또는 글로벌로 설정할 수 있습니다.
+=> 컨트롤러 인터셉터보다 라우트 핸들러의 인터셉터를 우선합니다.
+
+
+2. export class classNameInterceptor implements NestInterceptor {}
+=> 커스텀 인터셉터 클래스를 생성할 떄 정의합니다.
+=> NestInterceptor를 implements하여 요청, intecept(){} 메서드로 응답을 가로챌 준비를 합니다.
+
+
+3. constructor(private dto: any)
+=> 해당 클래스가 인스턴스화 될 떄 필요한 dto를 클래스를 가져옵니다.
+=> 해당 dto를 통해 추가하거나 제거하는 판단을 합니다.
+
+
+4. handler.handle().pipe(...)
+=> 컨트롤러 핸들러의 반환값을 가로채서 가공하는 역할을 합니다.
+
+
+5. map((data) => plainToClass(this.dto, data, { excludeExtraneousValues: true }))
+=> 두 번쨰 인자인 인스턴스 엔티티를 가져온 dto 객체로 변환합니다.
+=> excludeExtraneousValues : true를 통해 dto의 데코레이터를 반영합니다.
+
+=> 내부 동작
+=> const instance = new this.dto()
+=> instance.email = data.email/ instance.password = data.password;
+=> dto에 맞는 데이터가 반환됩니다.
+
+
+=> 지금 설정한 custom-interceptor는 직렬화 자체는 하지 않습니다.
+=> 필요한 데이터 dto를 받아서 가공하여 넘겨줄 뿐입니다.

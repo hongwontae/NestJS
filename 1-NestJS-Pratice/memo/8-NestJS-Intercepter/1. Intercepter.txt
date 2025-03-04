@@ -1,0 +1,27 @@
+1. NestJS 인터셉터
+=> 내부로 들어오는 요청이나 밖으로 나가는 응답을 가로채서 조작하는 Nest의 도구입니다.
+
+2. 직렬화(Serialization)
+=> 직렬화는 객체를 JSON 형식으로 변환하는 과정입니다.
+=> NestJS에서는 엔티티 객체를 클라이언트에 적합한 형식으로 변환하는 데 사용됩니다.
+=> 기본적으로 Controller에서 데이터를 응답할 떄 JSON으로 자동 변환되어 클라이언트에 응답합니다.
+
+
+3. import {Exclude} from 'class-transformer';
+=> 엔티티 파일에서 응답할 떄 포함시키지 않을 속성 위에 데코레이터를 추가합니다.
+=> 직렬화 시 해당 속성을 제거하는 데코레이터입니다.
+
+
+4. import {UseInterceptors,ClassSerializerInterceptor} from '@nestjs/common';
+=> controller에서 인터셉터를 설정할 라우트 핸들러에 데코레이터를 추가합니다.
+=> @UseInterceptors(ClassSerializerInterceptor)
+
+4-1. ClassSerializerInterceptor
+=> class-transformer의 직렬화 기능을 인터셉터로 감싸서 컨트롤러에서 반환되는 객체를 자동으로 직렬화합니다.
+=> 반환된 객체가 직렬화될 때 @Exclude() 등을 처리해줍니다.
+=> 직렬화 과정 속에서 데이터 가공이 안전해서 인터셉터에서 처리합니다.
+
+
+5. 2~3의 동작으로 인터셉터를 동작했을 떄 엔티티는 모든 컨트롤러와 서비스가 공유하기 떄문에
+제외한 응답에 추가되는 속성을 컨트롤하기 어렵습니다.
+
