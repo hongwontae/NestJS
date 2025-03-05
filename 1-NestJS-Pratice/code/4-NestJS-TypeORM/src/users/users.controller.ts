@@ -16,32 +16,35 @@ import { UpdateUserDto } from './dtos/update-users.dto';
 import {Serialize} from '../interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto'; 
 import { AuthService } from './auth.service';
+import {CurrentUser} from './decorators/current-user-decorator';
 
 @Serialize(UserDto)
 @Controller('auth')
 export class UsersController {
   constructor(private userService: UsersService, private authService : AuthService) {}
 
-  @Get('/colors/:color')
-  setColor(@Param('color') color : string, @Session() session : any){
-    session.color = color;
+  @Get('/whoami')
+  async whoAmI(@CurrentUser() user : string){
+      return user;
   }
 
-  @Get('/colors')
-  getColor(@Session() session : any){
-    return session.color;
+  @Post('signout')
+  signout(@Session() session : any){
+    session.userId = null;
   }
-
 
   @Post('/signup')
-  async createUser(@Body() body: CreateUserDto) {
-    console.log('createUser')
-    return this.authService.signup(body.email, body.password);
+  async createUser(@Body() body: CreateUserDto, @Session() session : any) {
+    const user = await this.authService.signup(body.email, body.password);
+    session.userId = user.id;
+    return user
   }
 
   @Post('/signin')
-  signin(@Body() body : CreateUserDto){
-    return this.authService.signin(body.email, body.password);
+  async signin(@Body() body : CreateUserDto, @Session() session : any){
+    const user = await this.authService.signin(body.email, body.password);
+    session.userId = user.id;
+    return user;
   }
 
   // @UseInterceptors(new SerializeInterceptor(UserDto))

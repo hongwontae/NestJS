@@ -1,0 +1,45 @@
+=> 예시 1
+@Controller('users')
+export class UsersController {
+  @Get('profile')
+  getProfile() {
+    return 'User Profile';
+  }
+}
+
+=> 예시 2
+export function Get(path?: string) {
+  return function (target, key, descriptor) {
+    Reflect.defineMetadata('route', { method: 'GET', path }, descriptor.value);
+  };
+}
+
+** TS가 클래스의 메서드를 등록하는 순간이란?
+=> 클래스가 정의될 떄 (JS가 클래스를 다 읽었을 떄) 내부적으로 모든 메서드를 prototype에 추가합니다.
+=> 이 순간을 의미합니다.
+
+
+1. @Get('/path')
+    getProfile(){...}
+=> @Get('path')가 실행됩니다. 본문은 실행하지만 반환하는 함수를 실행하지는 않습니다.
+=> NestJS 데코레이터 예시 2에서는 함수를 return 합니다.
+
+
+2. JS가 Controller 클래스를 다 읽고 prototype에 추가할 떄, 자동으로 return 된 함수를 호출합니다.
+=> 내부적으로 이런 동작을 합니다.
+2-1. const descriptor = Object.getOwnPropertyDescriptor(UsersController.prototype, 'getProfile');
+2-2. const returnedFunction = Get('profile') // 이 동작은 JS가 해당 데코레이터를 만났을 떄
+2-3. returnedFunction은 Reflect.defineMetadata('route', { method: 'GET', path }, descriptor.value);
+2-4. {method : 'GET', path}는 클로져로 유지됩니다. (2-2에 이미 존재)
+=> Reflect.defineMetadata()는 메타데이터를 설정하는 함수입니다.
+
+
+3. 나의 정리 (GPT 검수 완)
+1. NestJS 앱 부팅이 시작됩니다.
+2. Controller를 읽습니다. 이 떄 데코레이터와 라우트 핸들러를 읽습니다.
+3. 그리고 데코레이터는 고차 함수이기에 함수를 반환합니다. 반환된 함수는 실행하지 않습니다.
+그리고 path는 return function에 들어가서 클로져로 인해 생명을 유지합니다.
+4. controller를 다 읽었고 클래스를 등록합니다. 메서드를 등록하기 위해 .prototype에 추가합니다.
+5. 이 떄 NestJS 시스템이 3에서 반환된 함수를 실행합니다. Reflect.defineMetadata()입니다.
+6. 이제 라우트 핸들러는 app.use('/profile', controller.profile)처럼 연결이 완료되었습니다.
+
