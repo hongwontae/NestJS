@@ -17,6 +17,15 @@ let CurrentUserInterceptor = class CurrentUserInterceptor {
     constructor(userService) {
         this.userService = userService;
     }
+    async intercept(context, handler) {
+        const request = context.switchToHttp().getRequest();
+        const { userId } = request.session || {};
+        if (userId) {
+            const user = await this.userService.findOneUser(userId);
+            request.currentUser = user;
+        }
+        return handler.handle();
+    }
 };
 exports.CurrentUserInterceptor = CurrentUserInterceptor;
 exports.CurrentUserInterceptor = CurrentUserInterceptor = __decorate([
