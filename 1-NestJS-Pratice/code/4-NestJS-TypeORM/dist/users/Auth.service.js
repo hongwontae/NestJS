@@ -31,7 +31,20 @@ let AuthService = class AuthService {
         const user = await this.userService.createUser(email, result);
         return user;
     }
-    signin() { }
+    async signin(email, password) {
+        const [user] = await this.userService.findUser(email);
+        if (!user) {
+            throw new common_1.NotFoundException('user not found');
+        }
+        const [salt, storedHash] = user.password.split('.');
+        const hash = (await scrypt(password, salt, 32));
+        if (storedHash === hash.toString('hex')) {
+            return user;
+        }
+        else {
+            throw new common_1.BadRequestException('bad password');
+        }
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

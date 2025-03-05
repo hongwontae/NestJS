@@ -8,6 +8,7 @@ import {
   Query,
   Delete,
   NotFoundException,
+  Session
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
@@ -21,10 +22,26 @@ import { AuthService } from './auth.service';
 export class UsersController {
   constructor(private userService: UsersService, private authService : AuthService) {}
 
+  @Get('/colors/:color')
+  setColor(@Param('color') color : string, @Session() session : any){
+    session.color = color;
+  }
+
+  @Get('/colors')
+  getColor(@Session() session : any){
+    return session.color;
+  }
+
+
   @Post('/signup')
   async createUser(@Body() body: CreateUserDto) {
     console.log('createUser')
     return this.authService.signup(body.email, body.password);
+  }
+
+  @Post('/signin')
+  signin(@Body() body : CreateUserDto){
+    return this.authService.signin(body.email, body.password);
   }
 
   // @UseInterceptors(new SerializeInterceptor(UserDto))

@@ -1,4 +1,4 @@
-import {BadRequestException, Injectable} from '@nestjs/common';
+import {BadRequestException, Injectable, NotFoundException} from '@nestjs/common';
 import { UsersService } from './users.service';
 
 // randomBytes는 slat 값을 얻기 위해서
@@ -35,6 +35,23 @@ export class AuthService{
 
     }
 
-    signin(){}
+    async signin(email : string, password : string){
+        const [user] = await this.userService.findUser(email);
+
+        if(!user){
+            throw new NotFoundException('user not found');
+        }
+
+        const [salt, storedHash]  = user.password.split('.');
+
+        const hash = (await scrypt(password, salt, 32) ) as Buffer;
+
+        if(storedHash === hash.toString('hex')){
+            return user;
+        } else {
+            throw new BadRequestException('bad password')
+        }
+
+    }
 
 }

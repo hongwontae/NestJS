@@ -1,3 +1,37 @@
 1. salt 문자열, 해시 함수
 => import {randomBytes, scrypt as _scrypt} from 'crypto';
-=> 
+=> import { promisify } from 'util';
+const scrypt = promisify(_scrypt);
+
+
+1-1. randomBytes()
+=> 난수를 생성하는데 사용됩니다.
+=> const buffer = randomBytes(n)/ n바이트 길이의 랜덤 바이트를 생성합니다.
+=> buffer.toString('hex')/ n진수 문자열로 변환합니다.
+
+1-2. promisify()
+=> 콜백 기반 함수를 promise 기반으로 변환하는 유틸리티 함수입니다.
+=> crypto.scrypt()는 콜백 기반 함수이지만 promisify()를 사용하면 promise를 반환하는 함수로 바꾸어줍니다.
+
+1-3. scrypt()
+=> const hashPassword = await scrypt(password, salt, 해시된-키의-길이);
+=> password + hash와 결합된 해시값이 반환됩니다.
+=> 반환된 해시값 뒤에 구분자를 붙이고 salt를 뒤에 붙이는 방식으로 보안을 강화합니다.
+=> 이를 저장하거나 검증할 떄 사용됩니다.
+
+
+2. 가입, 로그인 Flow
+
+1.가입
+1-1. 가입을 위해서 email, password를 전달합니다.
+1-2. 고유한 email를 확인하는 작업을 진행합니다.
+1-3. 임의의 salt 값을 생성하고 hash 함수를 실행합니다.
+1-4. hash(구분자)salt 값을 DB에 저장합니다.
+
+2. 로그인
+2-1. eamil과 password를 받습니다.
+2-2. email를 통해 존재하는 이메일인지 확인하고 DB에 저장된 password를 가져옵니다.
+2-3. 기존에 알고있는 구분자를 분리하여 salt값을 알아냅니다.
+2-4. salt값과 들어온 password를 hash화 합니다.
+2-5. 구분자를 제거한 DB Password와 2-4 Password를 비교하여 일치하면 인증 성공입니다.
+

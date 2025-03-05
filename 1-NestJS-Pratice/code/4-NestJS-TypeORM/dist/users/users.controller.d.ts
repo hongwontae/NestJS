@@ -6,7 +6,10 @@ export declare class UsersController {
     private userService;
     private authService;
     constructor(userService: UsersService, authService: AuthService);
+    setColor(color: string, session: any): void;
+    getColor(session: any): any;
     createUser(body: CreateUserDto): Promise<import("./user.entity").User>;
+    signin(body: CreateUserDto): Promise<import("./user.entity").User>;
     findUser(id: string): Promise<import("./user.entity").User>;
     findAllUser(email: string): Promise<import("./user.entity").User[]>;
     removeUser(id: string): Promise<import("./user.entity").User>;

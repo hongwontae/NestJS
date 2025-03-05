@@ -8,6 +8,16 @@ Content-Type: application/json
 }
 
 
+### signin
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email" : "test@test.com",
+    "password" : "q2tlxm@123"
+}
+
+
 ### Find a particualer user with a given ID
 GET http://localhost:3000/auth/2
 
@@ -28,3 +38,10 @@ Content-Type: application/json
     "email" : "dnjsxgodh@naver.com",
     "password" : "heool"
 }
+
+
+### Session Test
+Get http://localhost:3000/auth/colors/red
+
+### Get the color
+Get http://localhost:3000/auth/colors
