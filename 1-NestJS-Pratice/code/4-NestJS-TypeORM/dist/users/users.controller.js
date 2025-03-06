@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
+const auth_gaurd_1 = require("./gaurd/auth.gaurd");
 const create_user_dto_1 = require("./dtos/create-user.dto");
 const users_service_1 = require("./users.service");
 const update_users_dto_1 = require("./dtos/update-users.dto");
@@ -21,6 +22,7 @@ const serialize_interceptor_1 = require("../interceptors/serialize.interceptor")
 const user_dto_1 = require("./dtos/user.dto");
 const auth_service_1 = require("./auth.service");
 const current_user_decorator_1 = require("./decorators/current-user-decorator");
+const user_entity_1 = require("./user.entity");
 let UsersController = class UsersController {
     userService;
     authService;
@@ -65,9 +67,10 @@ let UsersController = class UsersController {
 exports.UsersController = UsersController;
 __decorate([
     (0, common_1.Get)('/whoami'),
+    (0, common_1.UseGuards)(auth_gaurd_1.AuthClass),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [user_entity_1.User]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "whoAmI", null);
 __decorate([

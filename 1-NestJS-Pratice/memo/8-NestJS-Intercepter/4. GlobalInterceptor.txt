@@ -1,0 +1,15 @@
+1. GlobalInterceptor
+=> 기존에는 @UseInterceptor(CustomDecorator)를 컨트롤러에 붙여서 해당 컨트롤러 라우트에 인터셉터를
+ 설정했습니다.
+
+=> 컨트롤러가 여러 개일 떄 전역적을 설정하는 방법은
+1. 관련된 모듈에서 import {APP_INTERCEPTOR} from '@nestjs/core'; import customInterceptor from '..';
+2. provider : [
+    {
+        provide : APP_INTERCEPTOR,
+        useClass : customInterceptor
+    }
+]
+3. 해당 모듈의 컨트롤러들은 useClass에서 설정한 인터셉터를 거쳐야 합니다.
+
+

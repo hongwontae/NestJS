@@ -7,6 +7,10 @@
 4. constructor 내부에서 선언한 프로퍼티에 가져온 클래스를 그대로 할당합니다.
 
 
+** 의존성을 주입 받거나 주입 받으려면 DI 컨테이너에 클래스가 등록이 되어야합니다.
+** @Controller()는 내부에 @Injectable()이 설정되어 있습니다.
+
+
 5. 축약법
 => constructor(public messageRepo : MessageRepository){}
 => 프로퍼티와 constructor 내부를 생략하고 인자에 가져온 클래스, 타입을 할당하면 위와 동일합니다.

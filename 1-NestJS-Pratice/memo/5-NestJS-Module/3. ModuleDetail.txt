@@ -1,0 +1,10 @@
+1. @Module({
+    providers : [
+        {
+            provide : MyService,
+            useClass : MyService
+        }
+    ]
+})
+=> provide는 NestJS DI 컨테이너에서 사용할 토큰(키값)입니다.
+=> useClass는 실제 사용할 클래스를 지정합니다.
