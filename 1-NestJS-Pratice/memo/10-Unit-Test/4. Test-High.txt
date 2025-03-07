@@ -1,0 +1,31 @@
+1. 정교한 가짜 의존성을 만들기 위해서 beforeEeach에서 배열이나 객체로 가짜 DB역할을 만들 수 있습니다.
+=> describe('AuthService', aasync () => {
+    let service : AuthService;
+    let fakeUserService : Patial<UsersService>
+
+    beforeEach( async ()=>{
+        const users = [];
+        fakeUserService : ()=>{
+            find(email, password){
+                const filteredUser = users.filter(ele => ele.email === email);
+                return Promise.resolve(filteredUser);
+            },
+            create(email, password){
+                const user = {id : Math.floor(Math.random() * 999), email, password} as User;
+                users.push = users;
+                return Promise.resolve(user);
+            }
+        }
+    })
+
+})
+=> 이렇게 동적 가짜 의존성을 만들어서 사용할 수 있습니다.
+
+
+2. 글로져에 의해 users는 살아있고 접근할 수 있습니다.
+3. NestJS는 DI 컨테이너에 가짜 의존성이 있지만 users에 접근할 수 있습니다.
+(서로 독립적이긴 합니다.)
+
+
+4. 가짜 DI 컨테이너의 메서드들을 it('', ()=>{}) 콜백에서 오버라이딩하여 재정의하여 사용할 수 있습니다.
+=> 가짜 DI 컨테이너는 fakeUserService를 참조하기 떄문입니다.

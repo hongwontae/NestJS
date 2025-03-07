@@ -78,3 +78,4 @@ export class UsersController {
     this.userService.updateUser(parseInt(id), body);
   }
 }
+    

@@ -1,0 +1,15 @@
+1. Jest
+=> 테스트 라이브러리입니다.
+=> Jest의 it의 콜백함수는 async, await 문법을 사용할 수 있습니다. (비동기 처리 가능)
+
+
+2. expect()
+=> Jest의 단언 함수입니다.
+=> expect() 뒤에 메서드 체이닝(매체)를 통해 결과를 검증합니다.
+=> await를 붙여서 비동기 결과를 기다릴 수 있습니다.
+
+2-1. rejects
+=> Promise가 reject되는 경우를 기대합니다.
+
+2-2. toThrow(customExcpetion)
+=> 던진 에러가 내가 지정한 에러인지 검사하는 매처입니다.
