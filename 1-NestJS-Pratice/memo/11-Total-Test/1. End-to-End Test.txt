@@ -1,0 +1,16 @@
+1. Root Folder에는 자동으로 test 폴더에 통합 테스트 파일이 자동으로 생성됩니다.
+
+
+2. NestCLI의 통합 테스트 명령은 npm run test:e2e입니다.
+=> Nest 애플리케이션의 .e2e을 테스트를 실행합니다.
+
+
+3. e2e 테스트 과정에서는 main.ts 파일을 완전히 건너뜁니다.
+=> App Module을 직접 가져와 서버를 실행해버립니다.
+=> 즉, 설정한 쿠키 세션과 유효성 파이프 설정이 무효화됩니다.
+
+
+4. 해결 방법
+4-1. main.ts에서 설정한 app.use, app.useGlobalPipes() 들을 모듈화합니다.
+=> 그리고 main.ts에서 모듈화 함수를 호출하고 e2e 테스트 파일에서 createNestApplication 이후에 모듈화 함수를
+호출합니다. (main.ts 설정을 동일하게 다시 설정하는 방법입니다.)
