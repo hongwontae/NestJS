@@ -3,7 +3,6 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { App } from 'supertest/types';
 import { AppModule } from './../src/app.module';
-import { setup } from '../src/users/setup';
 
 describe('Authentication System', () => {
   let app: INestApplication<App>;
@@ -14,12 +13,11 @@ describe('Authentication System', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    setup(app);
     await app.init();
   });
 
   it('handles a signup request', () => {
-    const email = 'asdlkjq4432@akl.com'
+    const email = 'asdlkjq1234@akl.com'
     // 항상 http 서버에 요청을 수행하도록 합니다.
     return request(app.getHttpServer())
     // 메서드 호출
