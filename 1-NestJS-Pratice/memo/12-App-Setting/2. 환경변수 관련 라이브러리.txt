@@ -1,0 +1,40 @@
+1. cross-env
+=> 여러 운영체제에서 환경 변수를 설정하고 실행할 때 발생할 수 있는 호환성 문제를 해결해줍니다.
+
+
+2. @nestjs/config
+=> NestJS에서 환경 변수를 관리하기 위한 공식 라이브러리입니다.
+=> 애플리케이션 내에서 환경 변수를 안전하게 접근하고 관리할 수 있습니다.
+
+2-1. Module 파일에서 ConfigModule을 import하여 forRoot()를 통해 환경 변수를 로드합니다.
+
+2-2. 환경 변수를 사용하려면 ConfigService를 import하여 값에 접근할 수 있습니다.
+
+2-3. @Module({
+    imports : [
+        ConfigModule.forRoot({
+            isGlobal : true, // 애플리케이션 전역에서 환경 변수 사용 가능
+            // 어떤 .env 파일을 로드할지 지정하는 옵션입니다.
+            // package.json에서 NODE_ENV를 설정한 값을 가져옵니다.
+            envFilePath : `.env.${process.env.NODE_ENV}`
+        })
+    ]
+})
+
+
+3. .env 파일에 환경 변수를 설정하고 package.json 스크립트 명령어에 환경 변수 키에 접근합니다.
+=> 애플리케이션이 로드되면 이 떄 환경변수를 가져옵니다.
+
+
+3. 환경 변수
+3-1. NODE_ENV=KEY
+=> package.json에서 사용하는 환경 변수 이름이자 환경변수 설정 방법입니다.
+=> 일반적으로 애플리케이션이 실행되는 환경을 정의하는데 사용됩니다.
+
+3-2. process.env.NODE_ENV
+=> Node.js 애플리케이션 내에서 환경 변수에 접근하는 방법입니다.
+=> process.env 객체를 통해 현재 실행 중인 프로세스의 환경 변수에 접근할 수 있게 해줍니다.
+
+
+4. .env 파일 위치
+=> NestJS에서 .env 파일의 위치는 루트입니다.

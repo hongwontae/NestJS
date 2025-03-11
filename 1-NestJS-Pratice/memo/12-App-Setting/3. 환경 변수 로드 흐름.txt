@@ -1,0 +1,27 @@
+1. .env 파일을 생성하고 노출을 원하지 않는 값을 할당합니다.
+
+2. package.json에서 cross-env NODE_ENV=key command...를 설정합니다.
+=> 일부 설정을 완료하면 process.env.NODE_ENV를 통해 key에 접근할 수 있습니다.
+
+3. 환경 변수를 NestJS 전역에 사용하기 위해 ConfigModule.forRoot({})를 통해 DI 컨테이너에 등록합니다.
+=> ConfigModule.forRoot({
+    isGlobal : true,
+    // 어떤 파일의 .env을 사용할지 결정합니다.
+    envFilePath : `.env.{process.env.NODE_ENV}`
+})
+3-1. 만약 환경 변수를 가져와 비동기적으로 database를 연결 것이 아니라면 3 설정만으로 충분합니다.
+
+4. database 비동기 설정을 위해서 TypeOrmModule.forRootAsync({})를 통해 연결합니다.
+=> TypeOrmModule.forRootAsync({
+    inject : [ConfigService], // ConfigService를 주입받습니다.
+    // 반환되는 값을 비동기 처리를 받아들입니다.
+    useFactory : (congif : ConfigService)=>{
+        return {
+            type : 'sqlite',
+            // .env 파일에 있는 key를 가져와서 value를 취합니다.
+            database : config.get<string>('db_name')
+        }
+    }
+})
+
+5. 개발이나 테스트 환경에 따라 DB를 다르게 설정하여 애플리케이션을 돌릴 수 있습니다.
