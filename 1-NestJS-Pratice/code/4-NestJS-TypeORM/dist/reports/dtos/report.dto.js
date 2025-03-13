@@ -9,58 +9,55 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Report = void 0;
-const typeorm_1 = require("typeorm");
-const user_entity_1 = require("../users/user.entity");
-let Report = class Report {
+exports.ReportDto = void 0;
+const class_transformer_1 = require("class-transformer");
+class ReportDto {
     id;
     price;
-    make;
-    model;
     year;
     lng;
     lat;
+    make;
+    model;
     mileage;
-    user;
-};
-exports.Report = Report;
+    userId;
+}
+exports.ReportDto = ReportDto;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
-], Report.prototype, "id", void 0);
+], ReportDto.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
-], Report.prototype, "price", void 0);
+], ReportDto.prototype, "price", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", Number)
+], ReportDto.prototype, "year", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", Number)
+], ReportDto.prototype, "lng", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", Number)
+], ReportDto.prototype, "lat", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
-], Report.prototype, "make", void 0);
+], ReportDto.prototype, "make", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
-], Report.prototype, "model", void 0);
+], ReportDto.prototype, "model", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
-], Report.prototype, "year", void 0);
+], ReportDto.prototype, "mileage", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Expose)(),
+    (0, class_transformer_1.Transform)(({ obj }) => obj.user.userId),
     __metadata("design:type", Number)
-], Report.prototype, "lng", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Report.prototype, "lat", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Report.prototype, "mileage", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.reports),
-    __metadata("design:type", user_entity_1.User)
-], Report.prototype, "user", void 0);
-exports.Report = Report = __decorate([
-    (0, typeorm_1.Entity)()
-], Report);
-//# sourceMappingURL=report.entity.js.map
+], ReportDto.prototype, "userId", void 0);
+//# sourceMappingURL=report.dto.js.map
