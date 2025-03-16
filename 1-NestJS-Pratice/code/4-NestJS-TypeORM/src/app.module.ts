@@ -24,7 +24,7 @@ import {ConfigModule, ConfigService} from '@nestjs/config';
         return {
           type : 'sqlite',
           database : config.get<string>('DB_NAME'),
-          synchronize : true,
+          synchronize : false,
           entities : [User,Report]
         }
       }
@@ -52,10 +52,14 @@ import {ConfigModule, ConfigService} from '@nestjs/config';
 export class AppModule {
   // App.module 애플리케이션으로 들어오는 트래픽을 수신할 떄
   // 자동으로 호출됩니다.
+  constructor(private configService : ConfigService){}
+
+
+
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(
       cookieSession({
-        keys: ['asdasda'],
+        keys: [this.configService.get('COOKIE_KEY')],
       })
     ).forRoutes('*')
   }

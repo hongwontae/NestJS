@@ -21,16 +21,32 @@ const current_user_decorator_1 = require("../users/decorators/current-user-decor
 const user_entity_1 = require("../users/user.entity");
 const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
 const report_dto_1 = require("./dtos/report.dto");
+const approve_dto_1 = require("./dtos/approve-dto");
+const admin_guard_1 = require("../guard/admin.guard");
+const get_estimate_dto_1 = require("./dtos/get-estimate.dto");
 let ReportsController = class ReportsController {
     reportsService;
     constructor(reportsService) {
         this.reportsService = reportsService;
     }
+    getEstimate(query) {
+        return this.reportsService.createEstimate(query);
+    }
     async createPost(body, user) {
         return this.reportsService.create(body, user);
     }
+    approvedReport(id, body) {
+        return this.reportsService.changeApproval(id, body.approved);
+    }
 };
 exports.ReportsController = ReportsController;
+__decorate([
+    (0, common_1.Get)(''),
+    __param(0, (0, common_1.Query)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [get_estimate_dto_1.GetEstimateDto]),
+    __metadata("design:returntype", void 0)
+], ReportsController.prototype, "getEstimate", null);
 __decorate([
     (0, common_1.Post)(''),
     (0, common_1.UseGuards)(auth_gaurd_1.AuthClass),
@@ -41,6 +57,15 @@ __decorate([
     __metadata("design:paramtypes", [create_report_dto_1.CreateReportDto, user_entity_1.User]),
     __metadata("design:returntype", Promise)
 ], ReportsController.prototype, "createPost", null);
+__decorate([
+    (0, common_1.Patch)('/:id'),
+    (0, common_1.UseGuards)(admin_guard_1.AdminGaurd),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, approve_dto_1.ApproveReportDto]),
+    __metadata("design:returntype", void 0)
+], ReportsController.prototype, "approvedReport", null);
 exports.ReportsController = ReportsController = __decorate([
     (0, common_1.Controller)('reports'),
     __metadata("design:paramtypes", [reports_service_1.ReportsService])

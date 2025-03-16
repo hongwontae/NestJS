@@ -13,9 +13,11 @@ const users_service_1 = require("./users.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./user.entity");
 const auth_service_1 = require("./auth.service");
-const core_1 = require("@nestjs/core");
-const curent_user_interceptor_1 = require("../interceptors/curent-user-interceptor");
+const current_user_middleware_1 = require("./middleware/current-user.middleware");
 let UsersModule = class UsersModule {
+    configure(consumer) {
+        consumer.apply(current_user_middleware_1.CurrentUserMiddleware).forRoutes('*');
+    }
 };
 exports.UsersModule = UsersModule;
 exports.UsersModule = UsersModule = __decorate([
@@ -25,7 +27,6 @@ exports.UsersModule = UsersModule = __decorate([
         providers: [
             users_service_1.UsersService,
             auth_service_1.AuthService,
-            { provide: core_1.APP_INTERCEPTOR, useClass: curent_user_interceptor_1.CurrentUserInterceptor },
         ],
     })
 ], UsersModule);

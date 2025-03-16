@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const user_entity_1 = require("../users/user.entity");
 let Report = class Report {
     id;
+    approved;
     price;
     make;
     model;
@@ -28,6 +29,10 @@ __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], Report.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: false }),
+    __metadata("design:type", Boolean)
+], Report.prototype, "approved", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)

@@ -1,0 +1,27 @@
+1. declare
+=> 타입 선언만 하고 실제 구현은 없는 것을 알리는 키워드입니다.
+=> declare를 선언한 파일만 컴파일을 방지합니다.
+
+
+2. TS + declare
+=> TypeScript는 기본적으로 모든 변수가 정의되지 않으면 오류를 발생시킵니다.
+=> declare를 사용하면, 변수나 함수가 존재한다고 "선언"만 하고, 실제 구현은 검사하지 않습니다.
+=> ex) declare const $ : any (jQuery 라이브러리에서 타입 오류를 방지할 수 있습니다.)
+=> ex) declare function greet(name : string) : void (해당 함수를 호출해도 오류가 발생하지 않습니다.)
+=> ex) declare interface Person {name : string; age : number} (인터페이스 컴파일 x)
+
+
+3. declare module
+=> declare module "my-library" {export function doSomething() : void;}
+(TS가 해당 모듈이 존재한다고 믿습니다.)
+
+
+4. declare global
+=> 프로젝트 전역에서 사용이 가능해집니다.
+=> declare global {
+    interface Window {
+        myCustomProperty : string;
+    }
+}
+window.myCustomProperty = 'Hello!'
+

@@ -7,5 +7,6 @@ export declare class ReportDto {
     make: string;
     model: string;
     mileage: number;
+    approved: boolean;
     userId: number;
 }

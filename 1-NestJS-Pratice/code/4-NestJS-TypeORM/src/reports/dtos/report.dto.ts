@@ -26,6 +26,9 @@
         mileage : number;
 
         @Expose()
+        approved : boolean
+
+        @Expose()
         @Transform(({obj})=>obj.user.userId)
         userId : number;
     }
