@@ -13,13 +13,30 @@
 => TypeORM의 해당 속성이 true라면 테이블의 구조의 변경이 발생하면
  초기화가 발생합니다.
 => 기존의 데이터가 사라지기 떄문에 배포 환경에서 위험한 설정입니다.
+3-1. 기존의 테이블에서 칼럼을 삭제하면 칼럼 데이터 전체가 사라집니다.
+=> 이런 불안정성 떄문에 마이그레이션을 사용합니다.
 
 
 4. 마이그레이션
+4-1. NestJS를 배포할 떄 DB 스키마를 안전하게 관리하기 위해서 마이그레이션 관리가 필요합니다.
+4-2. 이 떄 TypeORM CLI가 필요합니다.
+4-3. TypeORM CLI는 NestJS 파일에 DB 설정을 받을 수 없습니다.
 => synchronize를 사용하지 않고 마이그레이션이라는 파일을 생성하여 변경하는 것이 관례입니다.
 => 해당 파일에는 DB 구조를 변경할 up(), down()을 만들어냅니다.
 => up은 생성과 관련된 함수, down은 up을 삭제하는 함수를 정의합니다.
 
 
 5. 개발 환경에서 마이그레이션 동작과 생성
-=> 
+5-1. stop the development server
+5-2. Use the typeORM CLI to generate an empty migration file
+5-3. Add some code to change our DB in the migration file
+5-4. ** Use the TypeORM CLI to apply the migration to the DB **
+=> TypeORM이 DB와 연결되어야 합니다.
+=> 설정 변수는 app.module에 설정했습니다.
+=> TypeROM CLI를 실행해 마이그레이션 파일을 생성하고 적용할 떄 CLI는 엔티티 파일과
+ 마이그레이션 파일의 코드만 실행합니다.
+=> 즉, NestJS, ConfigModule에 대한 정보가 없습니다.
+=> DB 연결 설정을 한 곳에서 정의한 다음 NestJS와 TypeORM 모두 가져와 사용할 수 있도록 만들어야 합니다.
+5-5. DB is updated! Restart the development server
+
+

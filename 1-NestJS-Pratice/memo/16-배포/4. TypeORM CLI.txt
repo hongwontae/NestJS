@@ -1,0 +1,54 @@
+1. TypeORM CLI (Command line interface)
+=> TypeORM CLI 명령어를 통해 마이그레이션 작업을 수행하는 것을 의미합니다.
+=> TypeORM에서 마이그레이션(Migration) 은 데이터베이스 스키마 변경을 관리하는 기능입니다.
+=> 테이블을 생성/수정/삭제하는 SQL을 자동으로 생성하고 적용하는 방법입니다.
+=> 기본적으로 TypeORM cli는 js만 읽을 수 있습니다.
+
+
+2. typeorm migration command
+2-1. typeorm migration:generate -d src/data-source.ts -n MigrationName
+=> 마이그레이션 파일 생성 명령어 입니다.
+
+2-2. typeorm migration:run -d src/data-source.ts
+=> 생성된 마이그레이션 파일을 실행해서 실제 DB에 반영합니다.
+
+2-3. typeorm migration:revert -d src/data-source.ts
+=> 마지막으로 실행된 마이그레이션을 롤백합니다.
+
+2-4. typeorm migration:create -d src/data-source.ts -n CustomMigration
+=> 빈 마이그레이션 파일을 수동으로 생성합니다.
+=> up, down 함수에 SQL를 직접 작성해야 합니다.
+
+
+3. package.json scripts
+3-1. "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
+=> ts-node/register를 사용하여 TS 파일을 직접 실행합니다.
+=> typeorm 명령어를 실행할 때, ts-node가 자동으로 data-source.ts 파일을 읽을 수 있도록 합니다.
+=> typeorm이 직접 실행되므로 NestJS 프로젝트가 아닌 곳에서도 사용 가능합니다.
+
+3-2. "typeorm": "typeorm-ts-node-commonjs"
+=> TypeORM CLI에서 ts-node를 내부적으로 적용한 버전입니다.
+=> NestJS 프로젝트에서 사용하기 최적화
+=> typeorm migration:run 할 떄 --require ts-node/register 필요가 없습니다.
+
+
+4. data-source.ts vs ormconfig.js
+=> TypeORM 0.3x 이후로 data-source.ts 파일을 사용하여 DB 연결, 엔티티, 마이그레이션 설정 
+ 등을 관리하는 것을 권장하고 있습니다.
+=> 더욱 동적으로 정의할 수 있습니다. (최신 기술을 사용하거나 동적 설정 가능)
+=> ormconfig보다 data-source.ts가 TypeORM에서 권장하는 방식입니다.
+=> TypeORM CLI가 data-source.ts를 사용해서 DB와 상호작용합니다.
+
+4-1. data-source는 entities 배열에 엔티티 객체를 넣습니다.
+=> TypeORM이 내부적으로 실행 환경을 파악하여 적절한 확장자를 자동으로 처리합니다.
+=> 개발 환경에서는 .ts, 배포 환경에서는 .js
+
+4-2. TypeORM CLI는 기본적으로 JS만 처리할 수 있지만 data-source는 ts-node를 사용하여 ts 파일을
+ 런타임에 컴파일하여 실행할 수 있습니다.
+
+4-3. data-source.ts 설정을 완료하면 TypeOrmModule.forRoot(datasource.options)으로 연결합니다.
+
+
+
+
+

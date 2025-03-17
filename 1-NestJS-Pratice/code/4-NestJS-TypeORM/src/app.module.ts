@@ -5,10 +5,11 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ReportsModule } from './reports/reports.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/user.entity';
-import { Report } from './reports/report.entity';
 const cookieSession = require('cookie-session');
 import {ConfigModule, ConfigService} from '@nestjs/config';
+import { AppDataSource } from './data-source';
+import { User } from './users/user.entity';
+import { Report } from './reports/report.entity';
 
 @Module({
   imports: [
@@ -16,25 +17,8 @@ import {ConfigModule, ConfigService} from '@nestjs/config';
       isGlobal : true,
       envFilePath : `.env.${process.env.NODE_ENV}`
     }),
-    TypeOrmModule.forRootAsync({
-      // TypeOrm 설정 동안 ConfigSevice 인스턴스에 접근한다는 의미입니다.
-      inject : [ConfigService],
-      useFactory : (config : ConfigService)=>{
-        // 의존성 주입
-        return {
-          type : 'sqlite',
-          database : config.get<string>('DB_NAME'),
-          synchronize : false,
-          entities : [User,Report]
-        }
-      }
-    }),
-    // TypeOrmModule.forRoot({
-    //   type: 'sqlite',
-    //   database: '',
-    //   entities: [User, Report],
-    //   synchronize: true,
-    // }),
+    TypeOrmModule.forRoot(AppDataSource.options),
+    TypeOrmModule.forFeature([User, Report]),
     UsersModule,
     ReportsModule,
   ],

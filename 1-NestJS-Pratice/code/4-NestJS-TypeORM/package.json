@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "typeorm": "node -r ts-node/register ./node_modules/typeorm/cli.js -d data-source.ts",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "cross-env NODE_ENV=development nest start",
@@ -30,6 +31,7 @@
     "class-validator": "^0.14.1",
     "cookie-session": "^2.1.0",
     "cross-env": "^7.0.3",
+    "pg": "^8.14.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "sqlite3": "^5.1.7",
