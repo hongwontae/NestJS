@@ -11,4 +11,5 @@
     controllers : [...],
     providers : [...]
 })
-2-3. export class className(){} 위에서 @Module을 사용하여 내보냅니다. class 본문은 대개 정의하지 않습니다.
+2-3. export class className(){} 위에서 @Module을 사용하여 내보냅니다.
+=> class 본문은 middleware를 설정하는 곳입니다.

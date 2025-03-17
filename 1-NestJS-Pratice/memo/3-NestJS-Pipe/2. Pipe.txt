@@ -32,9 +32,11 @@
 
 
 6. ValidationPipe 내부 동작
-6-1. class-transformer가 실행되어 DTO 형태로 변환합니다.
+6-1. class-transformer가 실행되어 DTO 형태로 변환합니다. 
+=> {transform : false}가 defulat입니다. 만약 true라면 요청 데이터를 자동으로 형식에 맞춰 변환합니다.
 6-2. 그 후 class-validator가 실행되어 검증 수행합니다.
 6-3. 검증이 통과되면 DTO의 인스턴스 즉, class에서 개발자가 정의한 DTO 인스턴스를 
  컨트롤러가 받습니다.
+6-4. 유효성 검사가 실패하면 400 bad requests 에러가 발생합니다.
 
 

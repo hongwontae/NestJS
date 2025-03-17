@@ -1,0 +1,44 @@
+1. process.env
+=> Node.js에서 환경 변수를 관리하는 객체라고 할 수 있습니다.
+=> 애플리케이션이 실행될 떄 전역적으로 접근할 수 있는 설정 값입니다.
+
+1-1. process.env.PORT || 3000
+=> 환경 변수가 설정되지 않았다면 undefined입니다.
+=> .env 파일로부터 가져올 수 있습니다.
+
+
+2. npm install dotenv
+=> import * as dotenv from 'dotenv';
+    dotenv.config(); // .env 파일 로드
+    console.log(process.env.PORT)
+    console.log(process.env.DATABASE_URL)
+=> .env 파일을 로드하고 .env 파일에 설정한 값을 가져옵니다.
+
+
+3. NestJS에서 환경변수에 접근하는 방법
+3-1. npm install @nestjs/config
+3-2. App.module.ts
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true, // 전역에서 사용 가능하도록 설정
+    }),
+  ],
+})
+export class AppModule {}
+=> 이렇게 설정하면 모든 모듈의 Service나 Controller 등에서 환경변수에 접근할 수 있습니다.
+
+3-3. app.service.ts
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+
+@Injectable()
+export class ConfigExampleService {
+  constructor(private configService: ConfigService) {}
+
+  getPort(): string {
+    return this.configService.get<string>('PORT'); // .env에서 PORT 값 가져오기
+  }
+}
