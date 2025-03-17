@@ -1,0 +1,6 @@
+1. @InjectRepository(entity)
+=> 의존성 주입 시스템에 entity에 관련된 repository가 필요하다고 알립니다.
+
+1-1. constructor(@InjectRepository(User) private userRepo : Repository<User>)
+=> TypeOrm Repository를 가져오는 일반적인 코드입니다.
+=> Repository TypeOrmRepository의 타입이고 제네릭을 받아서 타입을 완성시킵니다.

@@ -20,3 +20,18 @@
 
 3-2. Module이 exports를 해야 다른 모듈이 imports하여 받을 수 있습니다.
 
+
+4. 환경 변수 설정
+4-1. cross-env, @nestjs/config를 설치합니다.
+4-2. scripts에 cross-env NODE_ENV=environmentValue 를 설정합니다.
+4-3. AppModule에서 ConfigModule.forRoot()를 통해 환경 변수 제어, 설정을 합니다.
+=> 동적으로 전역에서 사용할 수 있습니다.
+
+
+5. pipe 설정
+=> 파이프는 요청이 들어오면 요청 데이터를 dto transformer로 변환하고 validator로 변환하여 컨트롤러에게
+ 데이터를 전달하는 역할을 합니다.
+=> @usePipes()를 데코를 통해 컨트롤러, 라우트 핸들러에 pipe를 설정할 수 있습니다.
+
+
+

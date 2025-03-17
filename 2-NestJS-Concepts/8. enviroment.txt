@@ -6,6 +6,19 @@
 => 환경 변수가 설정되지 않았다면 undefined입니다.
 => .env 파일로부터 가져올 수 있습니다.
 
+1-2. process.env.NODE_ENV
+=> scripts 파일에 set NODE_ENV=development/ set NODE_ENV=production 처럼 작성
+=> 애플리케이션이 구동 중일 떄 명령어에 따라 
+ process.env.NODE_ENV를 만나면 development, production이 반환됩니다.
+
+1-3. .env 파일명 관례
+=> .env.test/ .env.local/ .env.prod 처럼 .env.기능 으로 명명합니다.
+
+1-4. cross-env install
+=> window나 unix는 환경 변수를 설정할 떄 차이가 있습니다.
+=> 해당 라이브러리를 사용하면 호환성을 해결 할 수 있습니다.
+=> script 명령어에 cross-env NODE_ENV=local ...를 사용하면 호환성이 해결됩니다.
+
 
 2. npm install dotenv
 => import * as dotenv from 'dotenv';
@@ -42,3 +55,7 @@ export class ConfigExampleService {
     return this.configService.get<string>('PORT'); // .env에서 PORT 값 가져오기
   }
 }
+
+
+4. scripts 명령어에 환경 변수를 설정하는 것은 환경 변수를 제어하는 여러 방법 중 하나입니다.
+=> .env, shell, 운영체제에 직접 설정 등 환경 변수는 다양한게 설정할 수 있습니다.
