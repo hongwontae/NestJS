@@ -3,7 +3,22 @@ POST http://localhost:2999/user/signup
 Content-Type: application/json
 
 {
-    "email" : "dnjsxoghd@naver.com",
+    "email" : "test@test.com",
     "password" : "q2tlxm@123",
     "admin" : false
 }
+
+
+### Signin
+POST http://localhost:2999/user/signin
+Content-Type: application/json
+
+{
+    "email" : "test@test.com",
+    "password" : "q2tlxm@123",
+    "admin" : false
+}
+
+
+### Delete User
+DELETE http://localhost:2999/user/remove/1

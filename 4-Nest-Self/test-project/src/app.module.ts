@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
@@ -7,6 +7,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UserEntity } from './user/user.entity';
 import { ReportEntity } from './report/report.entity';
+import { ConfigService } from '@nestjs/config';
+const cookieSession = require('cookie-session');
 
 @Module({
   imports: [
@@ -27,4 +29,11 @@ import { ReportEntity } from './report/report.entity';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private configService : ConfigService){}
+  configure(consumer : MiddlewareConsumer){
+    consumer.apply(
+      cookieSession({keys : [this.configService.get('Cookie_Key')]})
+    ).forRoutes('*')
+  }
+}

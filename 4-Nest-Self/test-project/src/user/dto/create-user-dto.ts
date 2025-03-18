@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import { IsString, IsBoolean } from 'class-validator';
 
 export class CreateUserDto {
@@ -9,5 +10,6 @@ export class CreateUserDto {
     password : string;
 
     @IsBoolean()
+    @Transform(({value})=> value ?? false)
     admin : boolean;
 }
