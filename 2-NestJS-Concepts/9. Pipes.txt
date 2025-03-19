@@ -1,0 +1,24 @@
+1. Pipes()
+=> DTO를 사용하여 요청 데이터를 검증하거나 변환하는 역할을 합니다.
+=> main.ts에서 전역으로 사용하거나 컨트롤러나 라우트 핸들러에서 @usePipes()를 데코를 사용하여 활성화합니다.
+=> 데코 인자에 new ValidationPipe()를 사용하여 다양한 설정을 할 수 있습니다.
+
+
+2. new VaidationPipe({transform : true});
+=> 해당 설정을 완료해야 요청 body 객체가 dto에 의한 객체가 됩니다.
+=> class-transformer의 영향을 받기 위해서 true 설정이 필요합니다.
+(false여도 class-validator는 동작합니다. 단순 객체에도 동작하기 때문입니다.)
+
+
+3. new ValidationPipe({transform : true, transformOptions : true})
+=> transformOptions는 객체 변환 과정에서 어떤 규칙을 적용할지 결정합니다.
+=> 기본값은 빈 객체로 만듭니다. 별 다른 효과는 없습니다.
+
+
+4. new ValidationPipe({ transform: true, transformOptions: { exposeDefaultValues: true } })
+=> dto에 설정된 기본값이 적용됩니다.
+
+
+5. new ValidationPipe({ transform: true, enableImplicitConversion: true })
+=> 요청 body는 json이기에 값은 string or null입니다.
+=> 해당 설정을 하면 @IsBoolean(), @IsStirng(), @IsNumber()로 설정된 속성들이 데코 타입으로 자동으로 변환됩니다.

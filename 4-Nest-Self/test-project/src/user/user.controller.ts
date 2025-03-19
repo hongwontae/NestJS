@@ -10,7 +10,7 @@ export class UserController {
     constructor(private usersService : UserService, private authService : AuthService){}
 
     @Post('signup')
-    @UsePipes(new ValidationPipe({transform : true}))
+    @UsePipes(new ValidationPipe({transform : true, transformOptions : {exposeDefaultValues : true}}))
     async createUser(@Body() body : CreateUserDto){
         const user = await this.authService.createUser(body.email, body.password, body.admin);
         return user;
@@ -19,7 +19,6 @@ export class UserController {
     @Post('signin')
     @UsePipes(new ValidationPipe())
     async signinUser(@Body() body : SigninUserDto, @Session() session : any){
-        console.log(session)
         const user = await this.authService.signinUser(body.email, body.password);
         session.userId = 200
         return user;

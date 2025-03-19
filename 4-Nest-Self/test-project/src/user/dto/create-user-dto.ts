@@ -10,6 +10,5 @@ export class CreateUserDto {
     password : string;
 
     @IsBoolean()
-    @Transform(({value})=> value ?? false)
-    admin : boolean;
+    admin : boolean = false;
 }
