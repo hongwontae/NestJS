@@ -51,5 +51,28 @@ export class AuthService {
         return await this.usersService.deleteUser(id);
     }
 
+    async updateUser(email : string, newestPassword : string, existingPassword : string){
+        const matchUser = await this.usersService.findoneEmailUser(email);
+
+        if(!matchUser){
+            throw new BadRequestException('일치하는 이메일이 없습니다.')
+        }
+
+        const [salt, storedHashedPassword] = matchUser.password.split('.');
+
+         const newHashedPassword = (await scrypt(existingPassword, salt, 32)) as Buffer;
+        
+         if(storedHashedPassword === newHashedPassword.toString('hex')){
+                const newPassword = (await scrypt(newestPassword, salt, 32)) as Buffer;
+                matchUser.password = salt + '.' + newPassword.toString('hex');
+                const user =  await this.usersService.saveUser(matchUser);
+                return user;
+         } else {
+            throw new BadRequestException('hashed화 중 에러 발생');
+         }
+
+
+    }
+
    
 }

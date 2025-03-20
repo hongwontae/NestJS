@@ -14,8 +14,17 @@ export class UserService {
     return await this.repo.save(user);
   }
 
+  async saveUser(userEntity){
+    return await this.repo.save(userEntity)
+  }
+
   async findUsers(email : string) {
     const users = await this.repo.find({where : {email}});
+    return users;
+  }
+
+  async findoneEmailUser(email : string){
+    const users = await this.repo.findOne({where : {email}});
     return users;
   }
 

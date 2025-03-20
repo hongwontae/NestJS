@@ -17,11 +17,11 @@ const cookieSession = require('cookie-session');
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     TypeOrmModule.forRoot({
-      type : 'sqlite',
+      type: 'sqlite',
       database: 'db.sqlite',
-      entities : [UserEntity, ReportEntity],
-      synchronize : true,
-      logging : true
+      entities: [UserEntity, ReportEntity],
+      synchronize: true,
+      logging: true,
     }),
     UserModule,
     ReportModule,
@@ -30,10 +30,17 @@ const cookieSession = require('cookie-session');
   providers: [AppService],
 })
 export class AppModule {
-  constructor(private configService : ConfigService){}
-  configure(consumer : MiddlewareConsumer){
-    consumer.apply(
-      cookieSession({keys : [this.configService.get('Cookie_Key')]})
-    ).forRoutes('*')
+  constructor(private configService: ConfigService) {}
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(
+        cookieSession({
+          name: 'session-hwt',
+          keys: [this.configService.get('Cookie_Key')],
+          httpOnly : false,
+          secure : false
+        }),
+      )
+      .forRoutes('*');
   }
 }

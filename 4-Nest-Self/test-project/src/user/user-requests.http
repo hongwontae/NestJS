@@ -20,4 +20,4 @@ Content-Type: application/json
 
 
 ### Delete User
-DELETE http://localhost:2999/user/remove/1
+DELETE http://localhost:2999/user/remove/5

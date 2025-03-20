@@ -30,7 +30,8 @@ function AuthComponent() {
 
   return (
     <>
-      <main className="border-[1px] p-2 m-auto bg-red-300">
+      <main className="border-[1px] p-2 m-auto bg-red-300 mt-2">
+      <h1 className="mb-4 mt-4 font-bold text-2xl">Singup Page</h1>
         <div className="flex flex-row justify-center gap-2 mb-2">
           <label id="email" htmlFor="email">
             Email
