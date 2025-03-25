@@ -1,0 +1,10 @@
+1. ObjectId 표현 방법
+=> MongoDB에서 자동으로 부여하는 ObjectId는 string 타입입니다.
+=> 또한 _id가 기본 이름이기 때문에 _id : string으로 타입을 설정해야 합니다.
+=> 즉, @ObjectIdColumn
+        _id : string;
+=> 그렇지 않으면 id, _id가 생기는 불상사가 일어납니다.
+
+
+2. 기본값 설정
+=> transform를 설정하고 @IsOptional()을 설정하고 타입에 값을 할당합니다

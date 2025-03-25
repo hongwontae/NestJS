@@ -9,6 +9,14 @@
 => class-transformer의 영향을 받기 위해서 true 설정이 필요합니다.
 (false여도 class-validator는 동작합니다. 단순 객체에도 동작하기 때문입니다.)
 
+2-1. 이 떄 body에 dto에서 설정하지 않은 값이 들어오면 통과합니다.
+=> {transform : true, whitelist : true}만 설정하면 설정하지 않은 값을 제거만 합니다.
+2-2. 만약 dto에 정의되지 않은 값이 들어왔을 떄 error를 발생하고 싶다면?
+=> @usePipes(new ValidationPipe({whitelist : true, forbidNonWhiteListed : ture}))를 설정하면 됩니다.
+
+2-3. 필수 값이 누락된 경우는 자동으로 에러가 발생합니다.
+=> 이 떄 dto에 @IsOptional() 데코가 필드위에 붙여 있다면 해당 필드가 없어도 에러가 발생하지 않습니다.
+
 
 3. new ValidationPipe({transform : true, transformOptions : true})
 => transformOptions는 객체 변환 과정에서 어떤 규칙을 적용할지 결정합니다.
@@ -16,9 +24,24 @@
 
 
 4. new ValidationPipe({ transform: true, transformOptions: { exposeDefaultValues: true } })
-=> dto에 설정된 기본값이 적용됩니다.
+=> @Expose()에 의해 기본값이 설정됩니다.
 
 
 5. new ValidationPipe({ transform: true, enableImplicitConversion: true })
 => 요청 body는 json이기에 값은 string or null입니다.
 => 해당 설정을 하면 @IsBoolean(), @IsStirng(), @IsNumber()로 설정된 속성들이 데코 타입으로 자동으로 변환됩니다.
+ 
+
+6. 기본값 설정 방법
+
+6-1. first 방법
+1. @IsOptional()
+=> 해당 필드가 dto로 변환될 떄 누락될 수 도 있음을 허용합니다.
+
+2. @Transform({value} => value ?? false)
+=> 기본값을 채워넣습니다.
+(이게 왜 안되지??)
+
+6-2. seconde 방법
+=> @IsOptional() 설정 후 필드에 직접 할당합니다.
+(가능)

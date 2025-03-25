@@ -13,3 +13,15 @@
 })
 2-3. export class className(){} 위에서 @Module을 사용하여 내보냅니다.
 => class 본문은 middleware를 설정하는 곳입니다.
+
+
+3. Module +
+3-1. 기본적으로 App Module은 다른 모든 service를 포함해야 하기 떄문에 각 모듈을 가져옵니다.
+3-2. app module => imports : [UserModule]
+(서비스를 가져오는 것이 아니라 Module을 가져와야 합니다.)
+
+3-3. 각 모듈에서는 providers, exports에 해당 되는 service를 등록해야 합니다.
+=> 그래야 제대로 가져갑니다.
+
+3-4. App Module이 아니라도 다른 모듈에서 다른 모듈의 서비스를 사용하고 싶다면 Module을 가져오면 됩니다.
+=> DI 시스템이 알아서 의존성 주입을 해줍니다.
