@@ -1,0 +1,8 @@
+1. JWT 클라이언트
+=> 로그인을 요청하면 jwt 정보을 로컬에 저장하거나 cookie에 저장하는 방식이 있습니다.
+=> 로컬에 저장한다면 jwt를 header에 포함해서 보내야 합니다.
+=> headers : {
+    Authorization : `Bearer ${jwtToken}`
+}
+
+=> cookie에 저장했다면 fetch 설정에서 credentials만 true로 설정하면 됩니다.

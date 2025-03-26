@@ -1,0 +1,51 @@
+1. install
+=> npm install @nestjs/jwt @nestjs/passport passport passport-jwt
+
+
+2. NestJS JWT 인증 구현 순서
+2-1. 설치, 환경 변수 설정
+2-2. AuthModule 설정
+2-3. JWT 토큰 발급
+2-4. JWT 전략 생성 (JWT 검증)
+2-5. 인증 가드 설정
+2-6. 로그인 API 구현
+2-7. 인증이 필요한 API 보호
+
+
+3. 설치 파일 설명
+3-1. @nestjs/jwt: NestJS에서 JWT를 쉽게 다룰 수 있게 해줌
+3-2. @nestjs/passport: Passport를 NestJS와 통합
+3-3. passport: 인증을 처리하는 Passport 라이브러리
+3-4. passport-jwt: JWT를 Passport 전략으로 사용하기 위한 라이브러리
+
+
+4. .env
+=> 비밀키와 만료시간을 설정합니다.
+
+
+5. AppModule 설정
+5-1. imports에 ConfigModule를 명시적으로 추가
+=> isGlobal : true가 설정되어 있다면 불필요할 수 있습니다.
+
+5-2. imports에 PassportModule를 추가
+=> 추가하여 Passport와 nestjs가 연결됩니다.
+=> Passport 기능을 전역적으로 활성화합니다.
+
+5-3. JwtModule.registerAsync({})
+=> 환경 변수를 사용하여 JWT를 설정합니다. 이를 위해 비동기 설정으로 등록합니다.
+=> imports를 통해 ConfigModule, inject를 통해 ConfigService를 받습니다.
+=> 비동기 설정이기 떄문에 적시에 ConfigService가 로드된다는 보장이 없습니다. 그렇기에 imports, inject에서 명시적으로 
+ 가져옵니다.
+
+=> useFactory, 비동기 모듈 설정에서 사용하는 함수입니다. useFactory는 인자에서 의존성 주입을 받을 수 있습니다.
+=> 함수 내부에서 객체 설정을 진행합니다.
+=> secret : configService.get<string>('JWT_SECRET') : 환경 변수 값을 가져옵니다.
+=> signOptions : {expiresIn: configService.get<string>('JWT_EXPIRES_IN')}
+=> JWT를 서명할 떄 사용할 옵션을 설정하는 객체입니다.
+
+
+6. providers
+=> AuthService와 Passport 전략 파일은 JwtStrategy(2-4)를 추가합니다.
+=> JWT를 자동으로 검증합니다.
+
+
