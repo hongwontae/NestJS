@@ -1,7 +1,4 @@
-1. Passport 
-=> Passport는 Node.js에서 인증을 쉽게 처리할 수 있도록 도와주는 미들웨어 라이브러리입니다.
-
-
-2. Passport 전략
-=> Passport는 다양한 인증 방법을 **"전략(Strategy)"**으로 제공하고, 각 전략은 특정 방식으로 인증을 처리해.
-=> Passport, nestjs, jwt 전략은 Guard, Service, Controller를 연결할 수 있게 해줍니다.
+1. Passport란?
+=> Passport는 "전략(Strategy)" 개념을 사용해서 인증을 처리합니다.
+=> JWT, OAuth, Google, Facebook, Local(아이디-비밀번호) 등 여러 인증 방식을 쉽게 추가할 수 있습니다.
+=> Passport가 JWT 인증 과정을 자동으로 처리해줍니다.

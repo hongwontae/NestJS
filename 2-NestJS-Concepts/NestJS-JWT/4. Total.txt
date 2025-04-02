@@ -1,0 +1,28 @@
+1. JwtModule: JWT를 발급하고 검증
+2. PassportModule: NestJS에서 인증을 쉽게 처리하도록 도와줌
+3. JwtStrategy: JWT가 유효한지 검사 (인증 전략)
+4. AuthService: 실제 로그인 로직 처리
+5. AuthController: 로그인, 로그아웃 등의 요청을 처리
+
+
+6. AuthModule의 구조
+=> imports에서 사용할 Module을 등록합니다.
+6-1. PassportModule.register({defaultStrategy : 'jwt'}),
+(Passport를 JWT 방식으로 사용합니다.)
+=> 이는 NestJS에서 Passport 전략을 사용할 수 있도록 설정하는 것입니다.
+=> 기본 인증 전략을 jwt, @UseGaurd(AuthGuard('jwt))를 이 덕분에 사용할 수 있습니다.
+
+6-2. JwtModule.registerAsync({
+    imports : [ConfigModule],
+    inject : [ConfigService],
+    useFactory : (configService : ConfigService)=>({
+        .... 설정
+    })
+}) => JWT를 설정합니다. JWT 비밀키와 유효시간을 설정합니다. 또한 비동기적 설정으로 환경변수에 접근합니다.
+
+6-3. providers : [AuthService, JwtStrategy]
+=> 인증 서비스 및 전략을 등록합니다.
+=> JwtStrategy는 NestJS가 자동으로 실행하여 사용하기에 DI 컨테이너에 등록해놔야 합니다.
+
+6-4. controller
+6-5. exports에 AuthService를 내보냅니다.
