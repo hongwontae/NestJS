@@ -1,4 +1,11 @@
 1. Passport란?
 => Passport는 "전략(Strategy)" 개념을 사용해서 인증을 처리합니다.
 => JWT, OAuth, Google, Facebook, Local(아이디-비밀번호) 등 여러 인증 방식을 쉽게 추가할 수 있습니다.
-=> Passport가 JWT 인증 과정을 자동으로 처리해줍니다.
+
+
+2. Passport의 동작 방식
+=> 특정 전략(예: passport-jwt)을 상속받아 인증 방식을 정의할 수 있습니다.
+=> validate() 메서드를 구현하여 인증이 성공했을 때 사용자 정보를 반환합니다.
+=> 즉, 기본적으로 PassportStrategy(Strategy)를 통해 JWT 기본 전략 클래스를 구현할 수 있습니다.
+=> super({}) 인증 전략을 설정하면 Passport가 해당 전략을 알아서 실행합니다.
+

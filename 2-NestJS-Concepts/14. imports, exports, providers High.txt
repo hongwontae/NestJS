@@ -1,0 +1,15 @@
+1. imports는 모듈을 로드하여 해당 모듈이 제공하는 
+ providers를 현재 모듈에서 사용할 수 있도록 하는 역할을 한다.
+
+1-1. 일반적인 모듈을 가져와서 exports된 provider를 연결하는 역할
+1-2. DynamicModule을 실행하여 새로운 provider를 생성하는 역할
+=> TypeOrmModule.forRoot()는 새로운 provider를 생성하는 함수입니다.
+
+
+2. providers
+=> DI 컨테이너 등록하는 역할입니다.
+=> 대체로 서비스를 등록합니다.
+
+
+3. exports
+=> 외부에서도 사용하기를 원하는 서비스나 모듈을 명시하는 곳입니다.

@@ -9,6 +9,7 @@
 4. exports의 서비스를 사용할 모듈파일에서 imports 키를 통해 가져올 수 있습니다.
 => @Module(providers:[service2], imports : [exportModule]);
 => 독립적인 모듈들이 연결되었습니다.
+=> 서비스 뿐만 아니라 컨트롤러, 레파지토리도 가져올 수 있습니다.
 
 5. 사용할 service 파일에서 constructor를 통해 의존성 주입을 실행하면 인스턴스가 할당됩니다.
 

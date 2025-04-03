@@ -1,3 +1,8 @@
 1. inject는 비동기 함수나 설정 함수에서 필요한 서비스를 명확히 주입받기 위한 방식입니다.
 => imports를 사용해서 받았다고 하더라도 적시에 사용할 수 있다는 보장이 없습니다.
 => 이를 위해서 inject에 Service를 추가합니다./ 그 전에 imports에 Module를 추가해야합니다.
+
+
+2. @Inject(), inject
+=> @Inject()는 클래스 내부에서 특정 provider를 직접 주입 받을 수 있습니다.
+=> inject를 사용하면 다른 provider를 주입 받을 수 있습니다.
