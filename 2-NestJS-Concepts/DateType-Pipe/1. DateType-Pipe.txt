@@ -1,0 +1,8 @@
+1. @IsDate()
+=> new Date()로 만든 객체만 허용합니다.
+=> data must be a Date instacne라는 경고가 응답됩니다.
+
+
+2. @Type(()=>Date)
+=> 문자열인 2024-04-04를 new Date(2024-04-04)로 바꾸는 역할을 합니다.
+=> 이 떄 문자열은 안전한 형식인 ISO 8601 포맷이 제일 좋습니다. (yyyy-MM-DDTHH:mm:ssZ)
