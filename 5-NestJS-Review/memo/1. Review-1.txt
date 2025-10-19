@@ -1,0 +1,25 @@
+1. NestJS 프레임워크 의존성
+1-1. nestjs/commom
+1-2. nestjs/core
+1-3. nestjs/platform-express
+1-4. reflect-metadata
+1-5. typescript
+
+
+2. NestJS Flow
+2-1. 요청에 포함된 데이터 검증 (Pipe)
+2-2. 유저 인증 (Guard)
+2-3. 라우트에 따른 특정한 함수 실행 (Controller)
+2-4. 비지니스 로직 실행 (Service)
+2-5. 데이터 베이스 접근 (Repository)
+
+
+3. NestJS에서 main.ts
+3-1. const app = await NestFactory.create(AppModule);
+        await app.listen(3000);
+
+
+4. NestJS 파일 명명 규칙
+4-1. 각 단어 끝에 .으로 잇습니다.
+4-2. controller, module를 명시합니다.
+4-3. 소문자로 명명합니다.
