@@ -1,2 +1,26 @@
 1. npm install -g @nestjs/cli
-=> 
+=> nest 프레임워크 명령어를 사용할 수 있는 설치 명령어입니다.
+
+
+2. nest new backName
+=> nest 프레임워크를 설치하는 명령어입니다.
+
+
+3. npm start:dev
+=> 서버 시작 + 새로고침 시 재시작
+
+
+4. nest generate ..
+4-1. nest generate module/controller/service name
+=> name 이름을 가진 폴더와 그 안에 name.module/cont../service.ts가 생성됩니다.
+
+4-2. nest generate module/controller/service FolderName/className(fileName) --flat
+=> --flat은 추가적인 폴더를 생성하지 않겠다는 명령입니다.
+=> 해당 명령은 module/controller/service에 간단한 연결을 도와줍니다.
+
+
+5. Routing Logic
+5-1. @Controller()
+=> 상위 라우트
+5-2. @Get(), @Post()..
+=> 하위 라우트

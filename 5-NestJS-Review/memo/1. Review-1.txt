@@ -18,6 +18,11 @@
 3-1. const app = await NestFactory.create(AppModule);
         await app.listen(3000);
 
+3-2. NestFactory.create(module)
+=> 모듈 메타데이터를 읽고 Nest 앱(HTTP 서버 포함)을 구성합니다.
+
+
+
 
 4. NestJS 파일 명명 규칙
 4-1. 각 단어 끝에 .으로 잇습니다.
