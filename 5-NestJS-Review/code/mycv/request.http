@@ -1,0 +1,8 @@
+### Post Test
+Post http://localhost:3000/auth/signup
+content-type : application/json
+
+{
+    "email" : "dnjsxoghd@naver.com",
+    "password" : "q2tlxm@123"
+}

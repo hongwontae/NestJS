@@ -1,0 +1,42 @@
+1. 설계
+1-1. User Module
+1-2. Reports Module
+
+
+2. TypeORM
+2-1. 설치 명령어
+=> npm install typeorm @nestjs/typeorm
+
+2-2. typeorm
+    1. 실제 DB 연결 및 CRUD를 수행합니다.
+    2. DB 연결, 엔티티 정의, SQL 실행..
+
+2-3. @nestjs/typeorm
+    1. NestJS의 Module/Providers 시스템에 TypeORM 인스턴스를 등록하고, @InjectRepository로 주입 가능하게 합니다.
+    => TypeORM을 NestJS DI 컨테이너에 연결하는 어댑터입니다.
+    2. nest의 의존성 주입, 모듈 시스템, Provider 등록과 TypeORM을 연결..
+
+
+3. 초기 TypeORM 설정
+3-1. import {TypeOrmModule} from '@nestjs/typeorm'
+3-2. imports : [TypeOrmModule.forRoot({
+    type : '데이터베이스',
+    database : '데이터베이스 이름',
+    entities : [만든 엔티티 파일 나열],
+    synchronize : DB 구조를 변경하는 Boolean
+})]
+=> 이 작업은 DB 연결을 실행하고 module을 return하고 dataSourceProvider를 providers, exports에 넣습니다.
+
+
+4. 엔티티 설정
+4-1. 자신의 모듈에 forFeature를 통해 entity를 등록합니다.
+=> 모듈에서 Repository를 DI로 주입받기 위한 작업입니다.
+=> 즉, 자동생성되는 Repository 객체(CRUD 메서드, 메타데이터) 용도
+
+4-2. 최종 부모에 forRoot에 entity 등록합니다.
+=> DB 연결 설정용입니다.
+=> 어떤 테이블을 만들지, 어떤 Entity를 매핑할지 결정합니다. (테이블 생성/동기화 수행)
+
+
+5. pipe 설정
+=> whitelist : true -> dto에 명시되지 않은 body 속성을 무시합니다.

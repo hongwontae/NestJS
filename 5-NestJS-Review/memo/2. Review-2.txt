@@ -18,6 +18,9 @@
 => --flat은 추가적인 폴더를 생성하지 않겠다는 명령입니다.
 => 해당 명령은 module/controller/service에 간단한 연결을 도와줍니다.
 
+4-3. nest generate -> nest g 
+=> 축약 가능합니다.
+
 
 5. Routing Logic
 5-1. @Controller()
