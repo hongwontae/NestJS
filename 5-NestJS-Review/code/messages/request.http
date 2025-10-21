@@ -11,7 +11,10 @@ Content-Type: application/json
     "content" : "Hello-World"
 }
 
-
 ### Get Param
-Get http://localhost:3000/messages/123222
+Get http://localhost:3000/messages/17
+
+
+### Computer
+Get http://localhost:3000/computer/run
 
