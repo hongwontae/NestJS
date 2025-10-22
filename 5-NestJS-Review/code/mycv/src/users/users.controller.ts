@@ -7,12 +7,12 @@ import {
   Patch,
   Post,
   Query,
-  UseInterceptors,
 } from '@nestjs/common';
 import { UserDto } from './dtos/user.dto';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dtos/user.update.dto';
-import {SerializeInterceptor} from '../interceptors/serialize.interceptor';
+import {UserResInterceptorDto} from './dtos/user.res.interceptor.dto';
+import {Serialize} from '../interceptors/serialize.interceptor';
 
 @Controller('auth')
 export class UsersController {
@@ -23,7 +23,7 @@ export class UsersController {
     return this.usersService.create(body.email, body.password);
   }
 
-  @UseInterceptors(SerializeInterceptor)
+  @Serialize(UserResInterceptorDto)
   @Get('/:id')
   findUser(@Param('id') id: string) {
     console.log('finduser handler running')

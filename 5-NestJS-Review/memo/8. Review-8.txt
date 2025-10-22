@@ -1,5 +1,9 @@
+(DTO는 들어오는 데이터를 변환하는 것 뿐만 아니라 나가는 데이터를 변환할 떄도 사용합니다.)
+
 1. 인터셉터
-=> 내부로 들어오는 요청이나 밖으로 나가는 응답을 가로채서 조작하는 Nest 도구입니다.
+1-1. 내부로 들어오는 요청이나 밖으로 나가는 응답을 가로채서 조작하는 Nest 도구입니다.
+1-2. 라우트 핸들러에 인터셉터를 사용할 수 도 있고 컨트롤러 자체에 인터셉터를 사용하여 공용으로 사용할 수 있습니다.
+1-3. 응답 DTO 직렬화에 많이 사용합니다. 
 
 2. Nest가 추천하는 인터셉터 방식
 2-1. 응답을 내보내기 전에 filtering할 속성에 class-transformer
@@ -10,7 +14,77 @@
 
 
 3. 커스텀 인터셉터
-3-1. 핸들러에 도착하는 요청이나 응답을 가로채서 DTO를 통해 변환하여 일반 객체 OR JSON으로 변환합니다.
-3-2. 
+3-1. Nest가 추천하는 인터셉터 방식은 활용성, 범용성이 떨어집니다. (entity에서 class-transformer 데코를 사용하여 제어 
+-> 전체적으로 적용이 됩니다.)
 
-(DTO는 들어오는 데이터를 변환하는 것 뿐만 아니라 나가는 데이터를 변환할 떄도 사용합니다.)
+3-2. export class CustomInterceptor implements NestInterceptor {
+    intercept (context : ExecutionContext, handler : CallHandler<any>) {
+        // 요청이 컨트롤러의 핸들러에 들어가기 전에 실행됩니다.
+    }
+}
+
+3-3. context : ExecutionContext
+    1. 지금 Nest가 어떤 요청을 처리 중인지를 알려주는 객체입니다.
+    2. const request = context.switchToHttp().getRequest(); // Express의 req
+    3. const response = context.switchToHttp().getResponse(); // Express의 res
+    4. const handlerFn = context.getHandler(); // 실행될 컨트롤러의 함수 
+    5. const controller = context.getClass(); // 컨트롤러 클래스 
+
+3-4. handler : CallHandler<any>
+    1. handler는 컨트롤러 핸들러를 감싸고 있는 객체입니다.
+    2. 해당 객체에는 handle()이라는 메서드가 하나 있습니다.
+    => 이를 호출해야 컨트롤러 함수가 실행됩니다.
+    => 또한 컨트롤러 함수 실행 결과값을 바로 내보내는게 아니라 Stream 형태로 나중에 방출합니다.
+    => 핸들러가 다 실행될 떄까지 기다리는게 아니라 어떤 값을 받을 파이프를 먼저 건네주는 것입니다.
+    => { id: 1, name: '홍길동' }; -> Observable.of({ id: 1, name: '홍길동' })
+
+    3. handler.handle.pipe(map((data : any)=>{
+        return data;
+    }))
+        1. pipe()는 return된 Observable을 가공하는 메서드입니다.
+        2. pipe 인자 안에서 함수를 실행하여 사용합니다.
+        3. tap()은 부수효과 실행, map()은 응답 데이터를 변형합니다.
+        => tap이나 map 둘 다 인자에 콜백을 받고 콜백의 인자는 라우트가 반환한 값입니다.
+
+3-5. Observable로 감싸면 다양한 프로토콜을 처리할 수 있고 동기/비동기 모두 통일된 스트림으로 처리가 가능합니다.
+
+3-6. plainToInstance(1,2,3)
+    1. 응답 DTO 직렬화할 떄 필수적인 class-transformer 라이브러리 메서드입니다.
+    2. 1 -> class, 2 -> 라우트에서 받은 data, 3 -> 옵션 객체
+    3. 라우트에서 받은 data를 class에 정의된 속성 + class-transformer에 적용된 deco, 옵션 객체에 의해 변환한다.
+    4. excludeExtraneousValues: true 
+    => DTO 클래스에 @Expose()로 명시된 속성만 변환 결과에 포함시키고 나머지는 제외한다.
+
+3-7. 커스텀 인터셉터에서 dto을 받아서 plainToInstance에 사용하는 것은 재사용이 힘듭니다.
+    1. 기본적으로 라우트 핸들러나 컨트롤러에 인터셉터 적용방법은
+    => @UseInterceptors(CustomInterceptor)
+    2. 재사용을 위해, 다양한 dto 직렬화를 위해
+    => @UseInterceptor(new CustomInterceptor(customDTO))
+    => 커스텀 인터셉터에서 constructor에서 customDTO을 받아서 응답에 사용합니다.
+
+
+4. 커스텀 데코레이터
+4-1. 라우트나 인터셉터에 적용방법이 너무 과하다면 데코레이터를 사용합니다.
+    1. 인터셉터를 정의한 파일에서 함수를 생성합니다.
+    2. 해당 함수에서 dto을 매개변수로 받고 UseInterceptors()을 return 합니다.
+    3. return UseInterceptors(new CustomInterceptor(dto))처리를 합니다.
+    4. 이제 @CustomDeco(dto)를 통해 축약할 수 있습니다.
+
+
+5. class type
+5-1. interface ClassConstructor {
+  new (인자1 : string, 인자2 : number): T;
+}
+
+5-2. new => TS 타입 정의할 때 new는 해당 타입은 new로 호출해야 한다고 규정합니다.
+5-3. (인자1 : string, 인자2 : number) => 생성자 함수가 받을 매개변수 타입을 정의합니다.
+5-4. : T => new로 호출했을 때 생성되는 객체의 타입을 정의하는 자리입니다.
+
+5-5. interface ClassConstructor {
+  new (...args: any[]): {};
+}
+=> new로 호출할 수 있는 모든 클래스 타입을 표현한 것입니다.
+=> (...args: any[]) 는 함수나 클래스 타입을 정의할 떄 매개변수 개수 제한이 없고 각 인자 타입은 any라는 의미입니다.
+=> : {}은 이것이 최소한 객체임을 정의합니다.
+=> 즉, ClassConstructor는 타입이 매개변수 무관, 클래스 내부 로직 상관없지만 무조건 클래스라는 것을 의미합니다.
+
