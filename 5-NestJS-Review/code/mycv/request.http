@@ -3,7 +3,16 @@ Post http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email" : "dnjsxoghd@naver.com",
+    "email" : "koala3121@naver.com",
+    "password" : "q2tlxm@1212"
+}
+
+### signin
+Post http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email" : "koala3121@naver.com",
     "password" : "q2tlxm@1212"
 }
 
@@ -23,3 +32,4 @@ Content-Type: application/json
 {
     "email" : "wlwlwl3121@naver.com"
 }
+
