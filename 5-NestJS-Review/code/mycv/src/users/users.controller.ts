@@ -15,10 +15,31 @@ import { UpdateUserDto } from './dtos/user.update.dto';
 import {UserResInterceptorDto} from './dtos/user.res.interceptor.dto';
 import {Serialize} from '../interceptors/serialize.interceptor';
 import { AuthService } from './auth.service';
+import { CurrentUser } from './decorators/current.user.deco';
+import {CurrentUserInt} from '../interceptors/current-user-interceptor';
 
 @Controller('auth')
 export class UsersController {
   constructor(private usersService: UsersService, private authService : AuthService) {}
+
+  @CurrentUserInt(UsersService)
+  @Get('/test')
+  test(@CurrentUser() user : string){
+    console.log(user);
+     return user;
+  }
+  
+  @Serialize(UserResInterceptorDto)
+  @Get('whoami')
+  whoAmI(@Session() session : any){
+    console.log(session.userId)
+    return this.usersService.findOne(session.userId);
+  }
+
+  @Post('/signout')
+  signout(@Session() session : any){
+    session.userId = null;
+  }
 
   @Serialize(UserResInterceptorDto)
   @Post('/signup')

@@ -1,3 +1,10 @@
+### dd
+Get http://localhost:3000/auth/test
+
+
+### whoami
+Get http://localhost:3000/auth/whoami
+
 ### create
 Post http://localhost:3000/auth/signup
 Content-Type: application/json
@@ -6,6 +13,9 @@ Content-Type: application/json
     "email" : "koala3121@naver.com",
     "password" : "q2tlxm@1212"
 }
+
+### signout
+Post http://localhost:3000/auth/signout
 
 ### signin
 Post http://localhost:3000/auth/signin
